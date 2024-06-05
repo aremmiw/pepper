@@ -39,13 +39,12 @@ void init_xcb(void) {
 	}
 
 	xcb_ungrab_server(connection);
-
 	xcb_flush(connection);
 }
 
 int get_events(void) {
 	int event_status = xcb_connection_has_error(connection);
-	
+
 	if (!event_status) {
 		xcb_generic_event_t *event = xcb_wait_for_event(connection);
 
@@ -69,7 +68,7 @@ int get_events(void) {
 				fprintf(stderr, "Unknown opcode: %d\n", event->response_type);
 				break;
 		}
-		
+
 		free(event);
 	}
 
@@ -148,7 +147,7 @@ void key_press(xcb_key_press_event_t *e) {
 
 int main(int argc, char **argv) {
 	int event_status = 0;
-	
+
 	init_xcb();
 	while (event_status == 0) {
 		event_status = get_events();
